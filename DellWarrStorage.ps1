@@ -1,7 +1,9 @@
 <#
 .SYNOPSIS
     The script pulls from a CSV file containing Dell service tags, retrieves warranty information and storage details for each device using the Dell API, and exports the results to a new CSV file.
-    The new CSV file will include the original columns along with new columns for ship date, warranty expiration, and storage information.
+    The new CSV file will include the original columns along with new columns for ship date, warranty expiration, and storage information. 
+    I find it easist to use this file in Visual Studio Code. I have this script in a folder with my CSV files and I open the folder in VSCode.
+    
     .DESCRIPTION
     This script reads service tags, retrieves warranty information (ship date and end date) and storage details (size and disk type) for each device using the Dell API.
     .PARAMETER ServiceTag
@@ -20,8 +22,8 @@
 
 # ---------------------------------------------------------------------------------------------------------------
 # Define the path to the CSV file imports and exports containing service tags
-$importFilePath = "AYC_InvShip.csv"
-$exportFilePath = "AYC_InvShipRUN.csv"
+$importFilePath = "YourFileName.csv"
+$exportFilePath = "FileNameForExport.csv"
 # Your API key and secret
 # ***MAKE SURE THESE ARE YOUR ACTIVE API CREDENTIALS***
 # These credentials are used to authenticate with the Dell API
@@ -150,13 +152,12 @@ function Get-DellStorageInfo {
     }
 } #end of Get-DellStorageInfo function
 
-
+#----------------------------
 # Start of the main script
 
 # Read serial numbers from $importFilePath (as defined at the top of the script)
 # This file should contain a column named 'Serial Number' with the service tags of Dell devices
 $serialNumbers = Import-Csv -Path $importFilePath
-
 
 
 # Get OAuth 2.0 access token once for all requests
